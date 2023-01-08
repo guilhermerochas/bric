@@ -1,6 +1,6 @@
 <h1 align="center">BRIC</h1>
 
-<h3 align="center"> An simple Alternative to Bloc's Cubit using ValueNotifier</h3>
+<h3 align="center"> A simple Alternative to Bloc's Cubit using ValueNotifier</h3>
 
 ## Usage
 
