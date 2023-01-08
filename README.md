@@ -1,39 +1,79 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+<h1 align="center">BRIC</h1>
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+<h3 align="center"> An simple Alternative to Bloc's Cubit using ValueNotifier</h3>
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Define your Bric state
 
 ```dart
-const like = 'sample';
+class CounterBric extends Bricit<int> {
+  CounterBric() : super(0);
+
+  void increment() => emit(value + 1);
+  void decrement() => emit(value - 1);
+}
 ```
 
-## Additional information
+Then you can simply register it using `BricitProvider` and get the value using `BricitBuilder`
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+This sample is present in the `samples` folder
+
+```dart
+ void main() => runApp(const CounterContainer());
+
+class CounterContainer extends StatelessWidget {
+  const CounterContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BricitProvider<CounterBric, int>(
+      create: (_) => CounterBric(),
+      child: const CounterWidget(),
+    );
+  }
+}
+
+class CounterWidget extends StatelessWidget {
+  const CounterWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("Bricit Counter Test"),
+        ),
+        body: BricitBuilder<CounterBric, int>(
+          builder: (context, state) {
+            if (state == 0) {
+              return const Center(
+                child: Text(
+                  "There is no value",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              );
+            }
+
+            return Center(
+              child: Text(
+                "The current value is: $state",
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => context.of<CounterBric, int>().increment(),
+          child: const Icon(Icons.add),
+        ),
+      ),
+    );
+  }
+}
+
+```
