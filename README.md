@@ -1,6 +1,6 @@
 <h1 align="center">BRIC</h1>
 
-<h3 align="center"> An simple Alternative to Bloc's Cubit using ValueNotifier</h3>
+<h3 align="center"> A simple Alternative to Bloc's Cubit using ValueNotifier</h3>
 
 ## Usage
 
@@ -20,7 +20,7 @@ Then you can simply register it using `BricitProvider` and get the value using `
 This sample is present in the `samples` folder
 
 ```dart
- void main() => runApp(const CounterContainer());
+void main() => runApp(const CounterContainer());
 
 class CounterContainer extends StatelessWidget {
   const CounterContainer({super.key});
